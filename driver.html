@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Axis Cash Van — Driver phone</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap"><style>
+body{margin:0;font-family:'Noto Sans',system-ui,sans-serif;color:#0f172a;background:#e9edf3}
+a{color:#1a43b8}a:hover{color:#1d4ed8}
+th,td{text-align:left;padding:12px 16px;border-bottom:1px solid #e2e6ed;font-size:14px}
+th{font-weight:500;color:#4b5565;font-size:13px;letter-spacing:.02em;text-transform:uppercase;background:#f3f5f9}
+.topbar{position:sticky;top:0;z-index:10;background:#0f172a;color:#eef2f8;padding:12px 24px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;font-size:14px}
+.topbar a{color:#8fb0ff;text-decoration:none}.topbar a:hover{text-decoration:underline}
+.topbar b{font-size:16px;margin-right:10px}
+.screen{margin:40px auto;max-width:1440px}
+.screen h2{font-size:16px;font-weight:600;color:#4b5565;margin:0 0 10px 4px;letter-spacing:.02em;text-transform:uppercase}
+.screen h2 span{font-family:'IBM Plex Mono',monospace;color:#1a43b8;margin-right:10px}
+.frame{background:#fff;border:1px solid #cfd6e0;border-radius:12px;overflow:hidden;box-shadow:0 8px 32px -12px #0f172a33}
+.phones{display:flex;flex-wrap:wrap;gap:40px;justify-content:center;padding:40px 24px}
+.phone{display:flex;flex-direction:column;gap:10px;align-items:center}
+.phone .frame{border-radius:28px;width:390px;height:844px;border:6px solid #0f172a}
+.phone h2{margin:0;text-align:center}
+span[style*="9999px"]{white-space:nowrap}td[style*="Plex Mono"]{white-space:nowrap}th{white-space:nowrap}td,th{padding:10px 12px;font-size:13px}input[aria-label^="OTP"]{min-width:0;width:0}
+.note{max-width:1440px;margin:24px auto;padding:16px 20px;background:#e8eefc;border:1px solid #cfd6e0;border-radius:12px;font-size:14px;line-height:20px;color:#0f172a}
+</style></head>
+<body><div class="topbar"><b>Axis Cash Van · Review</b><a href="index.html">Home</a><a href="driver.html">Driver phone</a><a href="portal.html">Axis portal</a><a href="#Main">D1</a><a href="#D2-Login">D2</a><a href="#D3-Ready">D3</a><a href="#D4-OnDuty">D4</a><a href="#D5-EndDuty">D5</a><a href="#D6-Problem">D6</a></div>
+<div class="note">Driver flow: scan the van QR → log in with mobile OTP → Start duty → on-duty view → End duty. Buttons are clickable and move between screens. No app install; this runs in the phone browser.</div><div class="phones"><div class="phone" id="Main"><h2><span>D1</span> Scan van QR</h2><div class="frame"><div style="width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; background: #0b1220; color: #ffffff">
+<div style="height: 56px; box-sizing: border-box; padding: 0 20px; display: flex; align-items: center; justify-content: space-between">
+<span style="font-size: 14px; font-weight: 500">Axis Bank · Cash van</span>
+<div style="display: flex; border: 1px solid #6b7a90; border-radius: 9999px; overflow: hidden; font-size: 13px; font-weight: 500">
+<button style="height: 32px; padding: 0 12px; border: 0; background: #ffffff; color: #0f172a">EN</button>
+<button style="height: 32px; padding: 0 12px; border: 0; background: transparent; color: #ffffff">हिं</button>
+</div>
+</div>
+<div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; padding: 0 20px">
+<h1 style="margin: 0; font-size: 28px; font-weight: 600; line-height: 36px; text-align: center">Scan the QR on the van</h1>
+<p style="margin: 0; font-size: 17px; line-height: 26px; color: #a3adbf; text-align: center">Point your phone camera at the sticker on the Track0tic device in the cabin.</p>
+<div style="position: relative; width: 260px; height: 260px; margin-top: 16px">
+<div style="position: absolute; left: 0; top: 0; width: 48px; height: 48px; border-left: 3px solid #ffffff; border-top: 3px solid #ffffff; border-radius: 16px 0 0 0"></div>
+<div style="position: absolute; right: 0; top: 0; width: 48px; height: 48px; border-right: 3px solid #ffffff; border-top: 3px solid #ffffff; border-radius: 0 16px 0 0"></div>
+<div style="position: absolute; left: 0; bottom: 0; width: 48px; height: 48px; border-left: 3px solid #ffffff; border-bottom: 3px solid #ffffff; border-radius: 0 0 0 16px"></div>
+<div style="position: absolute; right: 0; bottom: 0; width: 48px; height: 48px; border-right: 3px solid #ffffff; border-bottom: 3px solid #ffffff; border-radius: 0 0 16px 0"></div>
+<div style="position: absolute; left: 70px; top: 70px; width: 120px; height: 120px; background: #ffffff; border-radius: 8px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding: 12px; box-sizing: border-box">
+<div style="background: #0b1220; border-radius: 2px"></div><div></div><div style="background: #0b1220; border-radius: 2px"></div>
+<div></div><div style="background: #0b1220; border-radius: 2px"></div><div></div>
+<div style="background: #0b1220; border-radius: 2px"></div><div></div><div style="background: #0b1220; border-radius: 2px"></div>
+</div>
+</div>
+<p style="margin: 16px 0 0; font-size: 13px; line-height: 18px; color: #a3adbf; letter-spacing: 0.02em; text-transform: uppercase">Camera on</p>
+</div>
+<div style="padding: 16px 20px 32px; display: flex; flex-direction: column; gap: 12px">
+<a href="driver.html#D2-Login" style="display: flex; align-items: center; justify-content: center; height: 56px; border: 1px solid #6b7a90; border-radius: 12px; color: #ffffff; text-decoration: none; font-size: 17px; font-weight: 600">Type the van code instead</a>
+</div>
+</div></div></div><div class="phone" id="D2-Login"><h2><span>D2</span> Driver login</h2><div class="frame"><div style="width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; background: #ffffff">
+<div style="height: 56px; box-sizing: border-box; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #e2e6ed">
+<span style="font-size: 14px; font-weight: 500">Axis Bank · Cash van</span>
+<div style="display: flex; border: 1px solid #7a8696; border-radius: 9999px; overflow: hidden; font-size: 13px; font-weight: 500">
+<button style="height: 32px; padding: 0 12px; border: 0; background: #0f172a; color: #ffffff">EN</button>
+<button style="height: 32px; padding: 0 12px; border: 0; background: transparent; color: #0f172a">हिं</button>
+</div>
+</div>
+<div style="flex: 1; padding: 24px 20px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; align-items: center; gap: 12px; padding: 16px; background: #f3f5f9; border: 1px solid #e2e6ed; border-radius: 12px">
+<div style="width: 44px; height: 44px; border-radius: 8px; background: #e8eefc; display: flex; align-items: center; justify-content: center">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1a43b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 13l2-5h11l3 5v4H3z"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+</div>
+<div style="display: flex; flex-direction: column">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 24px; font-weight: 600; line-height: 32px">DL-01-A1016</span>
+<span style="font-size: 13px; color: #4b5565; letter-spacing: 0.02em">VAN · TRK-0421</span>
+</div>
+</div>
+<h1 style="margin: 8px 0 0; font-size: 28px; font-weight: 600; line-height: 36px">Log in to start duty</h1>
+<p style="margin: 0; font-size: 17px; line-height: 26px; color: #4b5565">Use the mobile number registered with Axis.</p>
+<label for="mobile" style="font-size: 14px; font-weight: 500; margin-top: 8px">Mobile number</label>
+<input id="mobile" type="tel" value="+91 98100 00000" style="height: 56px; box-sizing: border-box; padding: 0 16px; border: 1px solid #7a8696; border-radius: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 20px; color: #0f172a">
+<label style="font-size: 14px; font-weight: 500; margin-top: 8px">OTP (sent by SMS)</label>
+<div style="display: flex; gap: 8px">
+<input aria-label="OTP digit 1" value="4" style="flex: 1; height: 56px; box-sizing: border-box; text-align: center; border: 1px solid #7a8696; border-radius: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 28px; font-weight: 600">
+<input aria-label="OTP digit 2" value="8" style="flex: 1; height: 56px; box-sizing: border-box; text-align: center; border: 1px solid #7a8696; border-radius: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 28px; font-weight: 600">
+<input aria-label="OTP digit 3" value="2" style="flex: 1; height: 56px; box-sizing: border-box; text-align: center; border: 1px solid #7a8696; border-radius: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 28px; font-weight: 600">
+<input aria-label="OTP digit 4" value="" style="flex: 1; height: 56px; box-sizing: border-box; text-align: center; border: 2px solid #1d4ed8; border-radius: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 28px; font-weight: 600">
+<input aria-label="OTP digit 5" value="" style="flex: 1; height: 56px; box-sizing: border-box; text-align: center; border: 1px solid #7a8696; border-radius: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 28px; font-weight: 600">
+<input aria-label="OTP digit 6" value="" style="flex: 1; height: 56px; box-sizing: border-box; text-align: center; border: 1px solid #7a8696; border-radius: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 28px; font-weight: 600">
+</div>
+<p style="margin: 0; font-size: 14px; color: #4b5565">Resend in 0:42 · <a href="#resend">Didn’t get it?</a></p>
+</div>
+<div style="padding: 16px 20px 32px; box-shadow: 0 -2px 12px #0f172a14">
+<a href="driver.html#D3-Ready" style="display: flex; align-items: center; justify-content: center; height: 56px; background: #1d4ed8; border-radius: 12px; color: #ffffff; text-decoration: none; font-size: 17px; font-weight: 600">Log in</a>
+</div>
+</div></div></div><div class="phone" id="D3-Ready"><h2><span>D3</span> Ready to start duty</h2><div class="frame"><div style="width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; background: #ffffff">
+<div style="height: 56px; box-sizing: border-box; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #e2e6ed">
+<span style="font-size: 14px; font-weight: 500">Axis Bank · Cash van</span>
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="font-size: 13px; color: #4b5565">Ramesh K</span>
+<a href="driver.html#D2-Login" style="font-size: 13px">Log out</a>
+</div>
+</div>
+<div style="flex: 1; padding: 24px 20px; display: flex; flex-direction: column; gap: 16px; overflow: auto">
+<div style="display: flex; flex-direction: column; gap: 12px; padding: 20px; background: #ffffff; border: 1px solid #e2e6ed; border-radius: 16px">
+<span style="display: inline-flex; align-self: flex-start; height: 28px; align-items: center; padding: 0 12px; border-radius: 9999px; background: #eef1f6; color: #4b5565; font-size: 14px; font-weight: 500">Ready to go</span>
+<h1 style="margin: 0; font-size: 28px; font-weight: 600; line-height: 36px">Van DL-01-A1016</h1>
+<p style="margin: 0; font-size: 17px; line-height: 26px; color: #4b5565">Start duty when you are in the van. Your location is recorded from the device, not your phone.</p>
+</div>
+<div style="display: flex; flex-direction: column; background: #ffffff; border: 1px solid #e2e6ed; border-radius: 12px; padding: 4px 16px">
+<div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e2e6ed; font-size: 16px"><span style="color: #4b5565; font-weight: 500">Driver</span><span>Ramesh K · <span style="font-family: 'IBM Plex Mono', monospace; font-size: 15px">DRV-0117</span></span></div>
+<div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e2e6ed; font-size: 16px"><span style="color: #4b5565; font-weight: 500">Vendor</span><span>[CIT VENDOR NAME]</span></div>
+<div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e2e6ed; font-size: 16px"><span style="color: #4b5565; font-weight: 500">Device</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 15px">TRK-0421</span></div>
+<div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e2e6ed; font-size: 16px"><span style="color: #4b5565; font-weight: 500">Device battery</span><span style="color: #047857; font-weight: 500">82% · OK</span></div>
+<div style="display: flex; justify-content: space-between; padding: 12px 0; font-size: 16px"><span style="color: #4b5565; font-weight: 500">Today’s plan</span><span>3 runs · 5 stops</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 16px; background: #f3f5f9; border: 1px solid #e2e6ed; border-radius: 12px">
+<span style="font-size: 13px; font-weight: 500; letter-spacing: 0.02em; text-transform: uppercase; color: #4b5565">Also in the van (optional)</span>
+<div style="display: flex; justify-content: space-between; align-items: center; font-size: 16px">
+<span>Custodian / gunman</span>
+<a href="#add" style="font-size: 14px; font-weight: 500">+ Add by mobile</a>
+</div>
+</div>
+</div>
+<div style="padding: 16px 20px 32px; box-shadow: 0 -2px 12px #0f172a14">
+<a href="driver.html#D4-OnDuty" style="display: flex; align-items: center; justify-content: center; height: 56px; background: #1d4ed8; border-radius: 12px; color: #ffffff; text-decoration: none; font-size: 17px; font-weight: 600">Start duty</a>
+</div>
+</div></div></div><div class="phone" id="D4-OnDuty"><h2><span>D4</span> On duty</h2><div class="frame"><div style="width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; background: #ffffff">
+<div style="height: 56px; box-sizing: border-box; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #e2e6ed">
+<span style="font-size: 14px; font-weight: 500">Axis Bank · Cash van</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 500">DL-01-A1016</span>
+</div>
+<div style="flex: 1; padding: 24px 20px; display: flex; flex-direction: column; gap: 16px; overflow: auto">
+<div style="display: flex; flex-direction: column; gap: 12px; padding: 20px; background: #e8eefc; border: 1px solid #e2e6ed; border-radius: 16px">
+<span style="display: inline-flex; align-self: flex-start; height: 28px; align-items: center; padding: 0 12px; border-radius: 9999px; background: #1d4ed8; color: #ffffff; font-size: 14px; font-weight: 500">On duty</span>
+<h1 style="margin: 0; font-size: 28px; font-weight: 600; line-height: 36px">Started 08:12</h1>
+<div style="display: flex; gap: 24px">
+<div style="display: flex; flex-direction: column"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 40px; font-weight: 600; line-height: 48px">46.9</span><span style="font-size: 13px; color: #4b5565; letter-spacing: 0.02em; text-transform: uppercase">km so far</span></div>
+<div style="display: flex; flex-direction: column"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 40px; font-weight: 600; line-height: 48px">3/5</span><span style="font-size: 13px; color: #4b5565; letter-spacing: 0.02em; text-transform: uppercase">stops done</span></div>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 18px; font-weight: 600">Today’s stops</span>
+<div style="display: flex; flex-direction: column; background: #ffffff; border: 1px solid #e2e6ed; border-radius: 12px; padding: 4px 16px">
+<div style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #e2e6ed"><div style="width: 28px; height: 28px; border-radius: 9999px; background: #047857; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600">✓</div><div style="flex: 1; display: flex; flex-direction: column"><span style="font-size: 16px">Axis HO — Naraina chest</span><span style="font-size: 13px; color: #4b5565">Left 08:21</span></div></div>
+<div style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #e2e6ed"><div style="width: 28px; height: 28px; border-radius: 9999px; background: #047857; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600">✓</div><div style="flex: 1; display: flex; flex-direction: column"><span style="font-size: 16px">Karol Bagh branch</span><span style="font-size: 13px; color: #4b5565">09:04 – 09:39 · 35 min</span></div></div>
+<div style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #e2e6ed"><div style="width: 28px; height: 28px; border-radius: 9999px; background: #047857; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600">✓</div><div style="flex: 1; display: flex; flex-direction: column"><span style="font-size: 16px">Connaught Place branch</span><span style="font-size: 13px; color: #4b5565">10:02 – 10:27 · 25 min</span></div></div>
+<div style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #e2e6ed"><div style="width: 28px; height: 28px; border-radius: 9999px; background: #1d4ed8; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600">4</div><div style="flex: 1; display: flex; flex-direction: column"><span style="font-size: 16px; font-weight: 600">Nehru Place branch</span><span style="font-size: 13px; color: #1a43b8">On the way · 6.2 km</span></div></div>
+<div style="display: flex; align-items: center; gap: 12px; padding: 12px 0"><div style="width: 28px; height: 28px; border-radius: 9999px; background: #eef1f6; color: #4b5565; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600">5</div><div style="flex: 1; display: flex; flex-direction: column"><span style="font-size: 16px; color: #4b5565">Axis HO — Naraina chest</span><span style="font-size: 13px; color: #4b5565">Return</span></div></div>
+</div>
+</div>
+<a href="driver.html#D6-Problem" style="display: flex; align-items: center; justify-content: center; height: 44px; border: 1px solid #7a8696; border-radius: 12px; text-decoration: none; font-size: 16px; font-weight: 500; color: #1a43b8">Report a problem</a>
+</div>
+<div style="padding: 16px 20px 32px; box-shadow: 0 -2px 12px #0f172a14">
+<a href="driver.html#D5-EndDuty" style="display: flex; align-items: center; justify-content: center; height: 56px; background: #ffffff; border: 1px solid #7a8696; border-radius: 12px; color: #1a43b8; text-decoration: none; font-size: 17px; font-weight: 600">End duty</a>
+</div>
+</div></div></div><div class="phone" id="D5-EndDuty"><h2><span>D5</span> Duty ended</h2><div class="frame"><div style="width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; background: #ffffff">
+<div style="height: 56px; box-sizing: border-box; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #e2e6ed">
+<span style="font-size: 14px; font-weight: 500">Axis Bank · Cash van</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 500">DL-01-A1016</span>
+</div>
+<div style="flex: 1; padding: 24px 20px; display: flex; flex-direction: column; gap: 16px; overflow: auto">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 28px 20px; background: #e6f6ef; border: 1px solid #e2e6ed; border-radius: 16px; text-align: center">
+<div style="width: 56px; height: 56px; border-radius: 9999px; background: #047857; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 600">✓</div>
+<h1 style="margin: 0; font-size: 28px; font-weight: 600; line-height: 36px">Duty ended 16:48</h1>
+<p style="margin: 0; font-size: 17px; line-height: 26px; color: #4b5565">Your record for today is saved. Axis can see it now.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+<div style="display: flex; flex-direction: column; padding: 16px; background: #ffffff; border: 1px solid #e2e6ed; border-radius: 12px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 40px; font-weight: 600; line-height: 48px">112.4</span><span style="font-size: 13px; color: #4b5565; letter-spacing: 0.02em; text-transform: uppercase">km (GPS)</span></div>
+<div style="display: flex; flex-direction: column; padding: 16px; background: #ffffff; border: 1px solid #e2e6ed; border-radius: 12px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 40px; font-weight: 600; line-height: 48px">8h 36</span><span style="font-size: 13px; color: #4b5565; letter-spacing: 0.02em; text-transform: uppercase">on duty</span></div>
+<div style="display: flex; flex-direction: column; padding: 16px; background: #ffffff; border: 1px solid #e2e6ed; border-radius: 12px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 40px; font-weight: 600; line-height: 48px">5</span><span style="font-size: 13px; color: #4b5565; letter-spacing: 0.02em; text-transform: uppercase">stops</span></div>
+<div style="display: flex; flex-direction: column; padding: 16px; background: #ffffff; border: 1px solid #e2e6ed; border-radius: 12px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 40px; font-weight: 600; line-height: 48px; color: #b45309">1</span><span style="font-size: 13px; color: #4b5565; letter-spacing: 0.02em; text-transform: uppercase">unplanned halt</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 16px; background: #fef3e2; border: 1px solid #e2e6ed; border-radius: 12px">
+<span style="font-size: 16px; font-weight: 600; color: #92400e">Unplanned halt · 14 min</span>
+<span style="font-size: 14px; color: #4b5565">Near Moti Nagar, 12:38 – 12:52. Axis control room may ask about it.</span>
+</div>
+<p style="margin: 0; font-size: 14px; color: #4b5565">Duty ID <span style="font-family: 'IBM Plex Mono', monospace">AX-DUTY-2026-10-22-0041</span></p>
+</div>
+<div style="padding: 16px 20px 32px; box-shadow: 0 -2px 12px #0f172a14">
+<a href="driver.html#D2-Login" style="display: flex; align-items: center; justify-content: center; height: 56px; background: #1d4ed8; border-radius: 12px; color: #ffffff; text-decoration: none; font-size: 17px; font-weight: 600">Done · Log out</a>
+</div>
+</div></div></div><div class="phone" id="D6-Problem"><h2><span>D6</span> Device offline</h2><div class="frame"><div style="width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; background: #ffffff">
+<div style="height: 56px; box-sizing: border-box; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #e2e6ed">
+<a href="driver.html#D4-OnDuty" style="font-size: 14px; font-weight: 500; text-decoration: none">← Back</a>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 500">DL-01-A1016</span>
+</div>
+<div style="flex: 1; padding: 24px 20px; display: flex; flex-direction: column; gap: 16px; overflow: auto">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 28px 20px; background: #fdecec; border: 1px solid #e2e6ed; border-radius: 16px; text-align: center">
+<div style="width: 56px; height: 56px; border-radius: 9999px; background: #b91c1c; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 600">!</div>
+<h1 style="margin: 0; font-size: 28px; font-weight: 600; line-height: 36px">Device is offline</h1>
+<p style="margin: 0; font-size: 17px; line-height: 26px; color: #4b5565">No signal from the van device for 6 minutes. Your duty is still running; readings will catch up when it reconnects.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 18px; font-weight: 600">Check these</span>
+<div style="display: flex; flex-direction: column; background: #ffffff; border: 1px solid #e2e6ed; border-radius: 12px; padding: 4px 16px">
+<div style="display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #e2e6ed; font-size: 16px"><span style="width: 28px; height: 28px; border-radius: 9999px; background: #e8eefc; color: #1a43b8; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600">1</span><span style="flex: 1">Is the device light on? If not, press the power button once.</span></div>
+<div style="display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #e2e6ed; font-size: 16px"><span style="width: 28px; height: 28px; border-radius: 9999px; background: #e8eefc; color: #1a43b8; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600">2</span><span style="flex: 1">Are you in a basement or underground parking? Wait until you are outside.</span></div>
+<div style="display: flex; gap: 12px; padding: 12px 0; font-size: 16px"><span style="width: 28px; height: 28px; border-radius: 9999px; background: #e8eefc; color: #1a43b8; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600">3</span><span style="flex: 1">Still offline after 10 minutes? Call the control room.</span></div>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 18px; font-weight: 600">Or report something else</span>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<button style="height: 44px; text-align: left; padding: 0 16px; background: #ffffff; border: 1px solid #7a8696; border-radius: 8px; font-size: 16px; color: #0f172a">Van breakdown</button>
+<button style="height: 44px; text-align: left; padding: 0 16px; background: #ffffff; border: 1px solid #7a8696; border-radius: 8px; font-size: 16px; color: #0f172a">Route blocked / diversion</button>
+<button style="height: 44px; text-align: left; padding: 0 16px; background: #ffffff; border: 1px solid #7a8696; border-radius: 8px; font-size: 16px; color: #0f172a">Device damaged or missing</button>
+</div>
+</div>
+</div>
+<div style="padding: 16px 20px 32px; box-shadow: 0 -2px 12px #0f172a14">
+<a href="#call" style="display: flex; align-items: center; justify-content: center; height: 56px; background: #1d4ed8; border-radius: 12px; color: #ffffff; text-decoration: none; font-size: 17px; font-weight: 600">Call control room</a>
+</div>
+</div></div></div></div>
+<p style="text-align:center;font-size:13px;color:#4b5565;padding:32px">Ultimatemile India Pvt Ltd · Track0tic for Axis Bank · Confidential review copy · 22 Oct 2026</p>
+</body></html>
