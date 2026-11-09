@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Axis Cash Van — Portal</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap"><style>
+<title>Axis Cash Van — Portal</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap"><style>
 body{margin:0;font-family:'Noto Sans',system-ui,sans-serif;color:#0f172a;background:#e9edf3}
 a{color:#1a43b8}a:hover{color:#1d4ed8}
 th,td{text-align:left;padding:12px 16px;border-bottom:1px solid #e2e6ed;font-size:14px}
@@ -72,13 +72,14 @@ span[style*="9999px"]{white-space:nowrap}td[style*="Plex Mono"]{white-space:nowr
 <div style="flex: 2 1 480px; min-width: 0; display: flex; flex-direction: column; background: #ffffff; border: 1px solid #e2e6ed; border-radius: 12px; overflow: hidden">
 <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid #e2e6ed"><span style="font-size: 18px; font-weight: 600">Live map</span><span style="font-size: 13px; color: #4b5565">6 vans · branches and chests shown as geofences</span></div>
 <div style="height: 380px; background: #e8eefc; display: flex; align-items: center; justify-content: center; position: relative">
-<span style="font-size: 14px; color: #4b5565">[MAP — van positions, today’s tracks, geofence circles]</span>
+<span style="font-size: 14px; color: #4b5565">[MAP · MapMyIndia tiles on Leaflet — van positions, today’s tracks, geofence circles]</span>
 <div style="position: absolute; left: 120px; top: 90px; width: 14px; height: 14px; border-radius: 9999px; background: #1d4ed8; border: 2px solid #ffffff"></div>
 <div style="position: absolute; left: 300px; top: 160px; width: 14px; height: 14px; border-radius: 9999px; background: #1d4ed8; border: 2px solid #ffffff"></div>
 <div style="position: absolute; left: 420px; top: 240px; width: 14px; height: 14px; border-radius: 9999px; background: #b91c1c; border: 2px solid #ffffff"></div>
 <div style="position: absolute; left: 220px; top: 260px; width: 14px; height: 14px; border-radius: 9999px; background: #1d4ed8; border: 2px solid #ffffff"></div>
 <div style="position: absolute; left: 200px; top: 120px; width: 60px; height: 60px; border-radius: 9999px; border: 2px dashed #7a8696"></div>
 <div style="position: absolute; left: 380px; top: 70px; width: 60px; height: 60px; border-radius: 9999px; border: 2px dashed #7a8696"></div>
+<span style="position: absolute; right: 8px; bottom: 6px; font-size: 11px; color: #4b5565; background: #ffffffcc; padding: 2px 6px; border-radius: 4px">© MapMyIndia · Leaflet</span>
 </div>
 </div>
 <div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; background: #ffffff; border: 1px solid #e2e6ed; border-radius: 12px; overflow: hidden">
@@ -323,6 +324,21 @@ span[style*="9999px"]{white-space:nowrap}td[style*="Plex Mono"]{white-space:nowr
 </tbody>
 </table>
 </div>
+
+<div style="display: flex; flex-direction: column; gap: 16px; padding: 20px; background: #ffffff; border: 1px solid #e2e6ed; border-radius: 12px">
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 18px; font-weight: 600">Plan a run</span><span style="font-size: 13px; color: #4b5565">Pick the vendor first. The van list and the driver list then show only that vendor’s vans and KYC-verified drivers.</span></div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 4px"><label for="rd" style="font-size: 13px; font-weight: 500">Date</label><input id="rd" type="date" value="2026-11-10" style="height: 44px; box-sizing: border-box; padding: 0 12px; border: 1px solid #7a8696; border-radius: 8px; font-family: inherit; font-size: 14px"></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><label for="rv" style="font-size: 13px; font-weight: 500">1 · CIT vendor</label><select id="rv" style="height: 44px; padding: 0 12px; border: 2px solid #1d4ed8; border-radius: 8px; font-family: inherit; font-size: 14px; background: #ffffff"><option>[CIT VENDOR A]</option><option>[CIT VENDOR B]</option></select></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><label for="rvan" style="font-size: 13px; font-weight: 500">2 · Van <span style="color: #4b5565; font-weight: 400">(Vendor A only · 6)</span></label><select id="rvan" style="height: 44px; padding: 0 12px; border: 1px solid #7a8696; border-radius: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 14px; background: #ffffff"><option>DL-01-A1016</option><option>DL-01-A1012</option><option>DL-01-A1009</option><option>DL-01-A1014</option><option>DL-01-A1017</option><option>DL-01-A1013</option></select></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><label for="rdr" style="font-size: 13px; font-weight: 500">3 · Driver <span style="color: #4b5565; font-weight: 400">(Vendor A · KYC verified · 4)</span></label><select id="rdr" style="height: 44px; padding: 0 12px; border: 1px solid #7a8696; border-radius: 8px; font-family: inherit; font-size: 14px; background: #ffffff"><option>Ramesh K · DRV-0117</option><option>Vikas Y · DRV-0121</option><option>Neelam G · DRV-0098 (licence expiring)</option><option>Sunil M · DRV-0133</option></select></div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 4px"><label for="rhc" style="font-size: 13px; font-weight: 500">Home chest</label><select id="rhc" style="height: 44px; padding: 0 12px; border: 1px solid #7a8696; border-radius: 8px; font-family: inherit; font-size: 14px; background: #ffffff"><option>Axis HO — Naraina chest</option><option>Gurugram Cyber Hub chest</option></select></div>
+<div style="display: flex; flex-direction: column; gap: 4px; grid-column: span 3"><label for="rst" style="font-size: 13px; font-weight: 500">Planned stops, in order</label><div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; min-height: 44px; padding: 6px 12px; border: 1px solid #7a8696; border-radius: 8px"><span style="height: 28px; padding: 0 10px; border-radius: 9999px; background: #e8eefc; color: #1a43b8; font-size: 13px; font-weight: 500; display: inline-flex; align-items: center">1 · Karol Bagh branch</span><span style="height: 28px; padding: 0 10px; border-radius: 9999px; background: #e8eefc; color: #1a43b8; font-size: 13px; font-weight: 500; display: inline-flex; align-items: center">2 · Connaught Place branch</span><span style="height: 28px; padding: 0 10px; border-radius: 9999px; background: #e8eefc; color: #1a43b8; font-size: 13px; font-weight: 500; display: inline-flex; align-items: center">3 · Nehru Place branch</span><input id="rst" placeholder="+ add branch / ATM" style="flex: 1; min-width: 160px; height: 28px; border: 0; font-family: inherit; font-size: 14px"></div></div>
+</div>
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 8px"><span style="font-size: 13px; color: #4b5565">Rules: a driver whose licence has expired is greyed out; a van already planned for this date is hidden; vendor cannot be changed after save.</span><div style="display: flex; gap: 8px"><button style="height: 44px; padding: 0 16px; border: 1px solid #7a8696; border-radius: 8px; background: #ffffff; font-family: inherit; font-size: 14px; font-weight: 500; color: #1a43b8">Cancel</button><button style="height: 44px; padding: 0 16px; border: 0; border-radius: 8px; background: #1d4ed8; color: #ffffff; font-family: inherit; font-size: 14px; font-weight: 600">Save run</button></div></div>
+</div>
 </main>
 </div></div></div><div class="screen" id="P4-DutyRecord"><h2><span>P4</span> Duty record</h2><div class="frame"><div style="min-height: 900px; display: flex; flex-wrap: wrap; background: #f3f5f9">
 <nav style="width: 240px; box-sizing: border-box; padding: 24px 16px; display: flex; flex-direction: column; gap: 4px; background: #ffffff; border-right: 1px solid #e2e6ed">
@@ -344,8 +360,9 @@ span[style*="9999px"]{white-space:nowrap}td[style*="Plex Mono"]{white-space:nowr
 <div style="display: flex; flex-direction: column; gap: 4px"><a href="portal.html#P6-Duties" style="font-size: 13px; text-decoration: none">← Duties</a><h1 style="margin: 0; font-size: 22px; font-weight: 600; line-height: 28px">Duty <span style="font-family: 'IBM Plex Mono', monospace">AX-DUTY-2026-10-21-0038</span></h1><span style="font-size: 14px; color: #4b5565">DL-01-A1016 · Ramesh K · 21 Oct 2026 · 08:12 – 16:48</span></div>
 <div style="display: flex; gap: 8px"><span style="height: 32px; padding: 0 12px; border-radius: 9999px; background: #047857; color: #ffffff; font-size: 14px; font-weight: 500; display: flex; align-items: center">Completed</span><button style="height: 44px; padding: 0 16px; border: 1px solid #7a8696; border-radius: 8px; background: #ffffff; font-family: inherit; font-size: 14px; font-weight: 500; color: #1a43b8">Download PDF</button></div>
 </div>
-<div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px">
+<div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px">
 <div style="display: flex; flex-direction: column; gap: 4px; padding: 20px; background: #ffffff; border: 1px solid #e2e6ed; border-radius: 12px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 24px; font-weight: 600">112.4 km</span><span style="font-size: 13px; color: #4b5565; letter-spacing: 0.02em; text-transform: uppercase">GPS distance</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 20px; background: #ffffff; border: 1px solid #e2e6ed; border-radius: 12px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 24px; font-weight: 600">114.0 km</span><span style="font-size: 13px; color: #4b5565; letter-spacing: 0.02em; text-transform: uppercase">Odometer · diff 1.6</span></div>
 <div style="display: flex; flex-direction: column; gap: 4px; padding: 20px; background: #ffffff; border: 1px solid #e2e6ed; border-radius: 12px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 24px; font-weight: 600">8h 36m</span><span style="font-size: 13px; color: #4b5565; letter-spacing: 0.02em; text-transform: uppercase">On duty</span></div>
 <div style="display: flex; flex-direction: column; gap: 4px; padding: 20px; background: #ffffff; border: 1px solid #e2e6ed; border-radius: 12px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 24px; font-weight: 600">5 / 5</span><span style="font-size: 13px; color: #4b5565; letter-spacing: 0.02em; text-transform: uppercase">Planned stops</span></div>
 <div style="display: flex; flex-direction: column; gap: 4px; padding: 20px; background: #fef3e2; border: 1px solid #e2e6ed; border-radius: 12px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 24px; font-weight: 600; color: #92400e">1</span><span style="font-size: 13px; color: #4b5565; letter-spacing: 0.02em; text-transform: uppercase">Unplanned halt</span></div>
@@ -355,7 +372,7 @@ span[style*="9999px"]{white-space:nowrap}td[style*="Plex Mono"]{white-space:nowr
 <div style="flex: 1 1 480px; min-width: 0; display: flex; flex-direction: column; background: #ffffff; border: 1px solid #e2e6ed; border-radius: 12px; overflow: hidden">
 <div style="padding: 16px 20px; border-bottom: 1px solid #e2e6ed; font-size: 18px; font-weight: 600">Track</div>
 <div style="height: 420px; background: #e8eefc; display: flex; align-items: center; justify-content: center; position: relative">
-<span style="font-size: 14px; color: #4b5565">[MAP — full GPS track, stops numbered, halt marked in amber]</span>
+<span style="font-size: 14px; color: #4b5565">[MAP · MapMyIndia tiles on Leaflet — full GPS track, stops numbered, halt marked in amber]</span>
 <svg aria-hidden="true" width="100%" height="100%" viewBox="0 0 600 420" style="position: absolute; left: 0; top: 0"><path d="M80 340 L160 250 L240 200 L330 150 L420 120 L480 200 L360 300 L200 330 L80 340" fill="none" stroke="#1d4ed8" stroke-width="3"/><circle cx="80" cy="340" r="10" fill="#047857"/><circle cx="240" cy="200" r="10" fill="#047857"/><circle cx="420" cy="120" r="10" fill="#047857"/><circle cx="480" cy="200" r="10" fill="#047857"/><circle cx="330" cy="150" r="10" fill="#b45309"/></svg>
 </div>
 </div>
@@ -421,7 +438,7 @@ span[style*="9999px"]{white-space:nowrap}td[style*="Plex Mono"]{white-space:nowr
 </div>
 <div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 16px; padding: 20px; background: #ffffff; border: 1px solid #e2e6ed; border-radius: 12px">
 <span style="font-size: 18px; font-weight: 600">Axis HO — Naraina chest</span>
-<div style="height: 220px; background: #e8eefc; border-radius: 8px; display: flex; align-items: center; justify-content: center; position: relative"><span style="font-size: 14px; color: #4b5565">[MAP — pin and 150 m geofence circle]</span><div style="position: absolute; left: 50%; top: 50%; width: 120px; height: 120px; margin: -60px 0 0 -60px; border-radius: 9999px; border: 2px dashed #1d4ed8; background: #1d4ed822"></div></div>
+<div style="height: 220px; background: #e8eefc; border-radius: 8px; display: flex; align-items: center; justify-content: center; position: relative"><span style="font-size: 14px; color: #4b5565">[MAP · MapMyIndia — pin and 150 m geofence circle]</span><div style="position: absolute; left: 50%; top: 50%; width: 120px; height: 120px; margin: -60px 0 0 -60px; border-radius: 9999px; border: 2px dashed #1d4ed8; background: #1d4ed822"></div></div>
 <div style="display: flex; flex-direction: column; gap: 4px"><label for="nm" style="font-size: 13px; font-weight: 500">Name</label><input id="nm" value="Axis HO — Naraina chest" style="height: 44px; box-sizing: border-box; padding: 0 12px; border: 1px solid #7a8696; border-radius: 8px; font-family: inherit; font-size: 14px"></div>
 <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
 <div style="display: flex; flex-direction: column; gap: 4px"><label for="tp" style="font-size: 13px; font-weight: 500">Type</label><select id="tp" style="height: 44px; padding: 0 12px; border: 1px solid #7a8696; border-radius: 8px; font-family: inherit; font-size: 14px; background: #ffffff"><option>Currency chest</option></select></div>
@@ -615,5 +632,5 @@ span[style*="9999px"]{white-space:nowrap}td[style*="Plex Mono"]{white-space:nowr
 </div>
 </main>
 </div></div></div>
-<p style="text-align:center;font-size:13px;color:#4b5565;padding:32px">Ultimatemile India Pvt Ltd · Track0tic for Axis Bank · Confidential review copy · 22 Oct 2026</p>
+<p style="text-align:center;font-size:13px;color:#4b5565;padding:32px">Ultimatemile India Pvt Ltd · Track0tic for Axis Bank · Confidential review copy · 9 Nov 2026</p>
 </body></html>
