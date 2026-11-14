@@ -25,12 +25,13 @@ span[style*="9999px"]{white-space:nowrap}td[style*="Plex Mono"]{white-space:nowr
 <h1 style="font-size:32px;margin:48px 0 8px">Track0tic for Axis Bank — Cash van tracking</h1>
 <p style="font-size:16px;color:#4b5565;margin:0 0 32px">Phase 1 wireframes for review. One Track0tic device per van; the record is van, driver, GPS kilometres and stops. Nothing locks in phase 1; cash boxes are phase 2.</p>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px">
-<a href="driver.html" style="display:block;padding:24px;background:#fff;border:1px solid #cfd6e0;border-radius:12px;text-decoration:none;color:#0f172a"><div style="font-size:13px;color:#1a43b8;font-weight:500;text-transform:uppercase;letter-spacing:.02em">9 screens</div><div style="font-size:20px;font-weight:600;margin:6px 0">Driver phone</div><div style="font-size:14px;color:#4b5565">Scan device QR → OTP login → Scan van plate + odometer → Start duty → On duty → End duty → Device offline, plus Hindi screens</div></a>
-<a href="portal.html" style="display:block;padding:24px;background:#fff;border:1px solid #cfd6e0;border-radius:12px;text-decoration:none;color:#0f172a"><div style="font-size:13px;color:#1a43b8;font-weight:500;text-transform:uppercase;letter-spacing:.02em">12 screens</div><div style="font-size:20px;font-weight:600;margin:6px 0">Axis portal</div><div style="font-size:14px;color:#4b5565">Login, dashboard, vans, CIT vendors, drivers (KYC), duties, duty record, branches &amp; chests, alerts, KM reports, users &amp; roles, vendor view</div></a>
+<a href="driver.html" style="display:block;padding:24px;background:#fff;border:1px solid #cfd6e0;border-radius:12px;text-decoration:none;color:#0f172a"><div style="font-size:13px;color:#1a43b8;font-weight:500;text-transform:uppercase;letter-spacing:.02em">10 screens</div><div style="font-size:20px;font-weight:600;margin:6px 0">Driver phone</div><div style="font-size:14px;color:#4b5565">Scan device QR → OTP login → Scan van plate + odometer → Crew on board → Start duty → On duty → End duty → Device offline, plus Hindi screens</div></a>
+<a href="portal.html" style="display:block;padding:24px;background:#fff;border:1px solid #cfd6e0;border-radius:12px;text-decoration:none;color:#0f172a"><div style="font-size:13px;color:#1a43b8;font-weight:500;text-transform:uppercase;letter-spacing:.02em">13 screens</div><div style="font-size:20px;font-weight:600;margin:6px 0">Axis portal</div><div style="font-size:14px;color:#4b5565">Login, dashboard, vans, CIT vendors, crew members (KYC, all roles), duties, duty record, branches &amp; chests, alerts, KM reports, users &amp; roles, vendor view, printable gate pass</div></a>
 </div>
 <h3 style="margin:40px 0 12px;font-size:18px">Rules shown in the screens</h3>
 <ul style="font-size:15px;line-height:24px;color:#0f172a;padding-left:20px">
-<li>Driver logs in by mobile OTP only, after Axis verifies KYC (name as on Aadhaar, Aadhaar, mobile, DOB, licence number, class and validity, photo).</li>
+<li>Every crew member — driver, custodian 1–2, gunman 1–2 — has full KYC (name as on Aadhaar, Aadhaar, mobile, DOB, photo, DL for drivers, arms licence for gunmen) approved by a second Axis admin. Only the driver logs in by mobile OTP; he confirms the crew on board at start of duty.</li>
+<li>Every run prints as an A4 gate pass: crew with masked IDs, route, QR, and hand-written opening / closing odometer boxes; ops key the gate readings back into the portal.</li>
 <li>Licence expired → driver blocked from starting duty. Expiring within 60 days → warning.</li>
 <li>Every van and driver belongs to exactly one CIT vendor; several vendors can run at once; a vendor sees only its own fleet.</li>
 <li>KM is measured from the device GPS track per duty and reconciled against the vendor's invoice KM per van per month.</li>
@@ -41,5 +42,5 @@ span[style*="9999px"]{white-space:nowrap}td[style*="Plex Mono"]{white-space:nowr
 </ul>
 </div>
 
-<p style="text-align:center;font-size:13px;color:#4b5565;padding:32px">Ultimatemile India Pvt Ltd · Track0tic for Axis Bank · Confidential review copy · 9 Nov 2026</p>
+<p style="text-align:center;font-size:13px;color:#4b5565;padding:32px">Ultimatemile India Pvt Ltd · Track0tic for Axis Bank · Confidential review copy · 14 Nov 2026 · v3 crew + gate pass</p>
 </body></html>
