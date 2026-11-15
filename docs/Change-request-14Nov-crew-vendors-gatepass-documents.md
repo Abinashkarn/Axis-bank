@@ -3,7 +3,7 @@ title: "Axis CIT — Change request after customer demo (14 Nov 2026)"
 subtitle: "For Deepak · Track0tic™ Axis Bank tenant · crew members, KYC for all, printable gate pass, document expiry alerts"
 ---
 
-Five changes from the bank's feedback in today's demo. All are phase 1 and should go to UAT before the next demo.
+Six changes from the bank's feedback in today's demo. All are phase 1 and should go to UAT before the next demo.
 
 | # | Feedback | Change in one line |
 |---|---|---|
@@ -12,6 +12,7 @@ Five changes from the bank's feedback in today's demo. All are phase 1 and shoul
 | 3 | Every duty / work order must be printable as a **gate pass**, with boxes to write opening and closing odometer by hand | "Print gate pass" PDF on every run, plus a portal field to key in the hand-written readings |
 | 4 | Vendor agreements, van papers (RC, PUC, fitness, insurance, year of manufacture) and crew licences must be tracked with **expiry alerts** | One documents module with valid-till dates, 60/30/7-day alerts, blocking on expiry, Compliance page |
 | 5 | Approvers / admins must see and print one **collated PDF** per vendor, van and crew member — form + all documents + validity + approval trail — for internal bank audit | Approval dossier: approve from the dossier, Dossier tab everywhere, audit pack ZIP |
+| 6 | Too much data entry for the bank → the bank sends the vendor a **link** and the vendor enters its own masters; **three-person rule**: vendor maker → bank operator checker → bank admin approver | Vendor invite + self-onboarding wizard + approval queue with three stages |
 
 # 1. Crew members (rename of Drivers)
 
@@ -30,7 +31,7 @@ Five changes from the bank's feedback in today's demo. All are phase 1 and shoul
 | Police verification certificate (upload + date) | optional for all; bank may ask — keep the field |
 | Vendor | required; one vendor per crew member |
 
-Rules unchanged: Submit disabled until required fields and uploads are present; expired licence blocked; Aadhaar checksum; two-person approval (adding admin cannot approve); Reject with reason; Aadhaar masked in lists. Only a crew member with role **Driver**, KYC verified and licence valid can start a duty.
+Rules unchanged: Submit disabled until required fields and uploads are present; expired licence blocked; Aadhaar checksum; three-person approval (vendor maker → bank checker → bank approver, see section 6); Reject / send back with reason; Aadhaar masked in lists. Only a crew member with role **Driver**, KYC verified and licence valid can start a duty.
 
 **API**: keep `/ops/drivers` working as an alias for one release, add `/ops/crew-members`. Driver page OTP login stays for role Driver only (any role may be allowed later for custodian confirmation — see 2.3).
 
@@ -229,11 +230,11 @@ Every page carries: tenant, entity id, dossier no., page x / y, "Confidential �
 
 ## 4A.2 Where it appears
 
-- **Pending-approval rows** (vendors, vans, crew): button **Review dossier** opens it full-screen with the Approve / Reject buttons and reason box at the bottom — approvers approve *from* the dossier, not from the list. Approve is enabled only after the approver scrolls through the documents section (or ticks "I have checked all N documents").
+- **Pending rows** (vendors, vans, crew) and the **Approvals queue**: button **Review dossier** opens it full-screen. The bottom bar depends on the viewer's stage: checker sees *Send back* / *Mark checked*; approver sees *Reject* / *Approve* (only when already Checked). Each stage must tick its checklist / confirm it has seen all N documents.
 - **Entity detail pages**: *Dossier* tab — View · Print · Download PDF · version list.
 - **Compliance page**: Download dossier per row.
 - **Audit pack** (Admin / Super admin, Reports): pick vendor(s) and date range → one ZIP with every dossier (vendor + its vans + its crew) plus an index CSV (entity, dossier no., status, expiries). Generated in the background; link emailed; download logged.
-- **Vendor login**: vendor sees and can download dossiers of its own records only.
+- **Vendor**: no login; a *Download my dossier* task link can be sent on request (read-only, 7 days).
 
 ## 4A.3 Generation and storage
 
@@ -254,6 +255,67 @@ Every page carries: tenant, entity id, dossier no., page x / y, "Confidential �
 | K25 | Reports → Audit pack for Vendor A, last 12 months | ZIP with vendor + all vans + all crew dossiers + index CSV; email link; download logged |
 | K26 | Vendor user login → Dossier of another vendor's van | Not visible / 403 |
 
+# 6. Vendor self-onboarding and the three-person rule
+
+The bank should only **invite** and **approve**; the vendor types and uploads its own masters. Every master (vendor, van, crew member) and every later change passes through three people:
+
+| Stage | Who | What they do | Status after |
+|---|---|---|---|
+| 1 · Maker | **Vendor user** (or Axis ops on the vendor's behalf, flagged "entered by bank") | Fills the form, uploads documents and passport photos, submits | *Submitted · awaiting checker* |
+| 2 · Checker | **Bank operator** (Operator / Dispatcher role) | Opens the dossier, verifies each document against the form (checklist), can send back to the vendor with remarks, ticks "Checked" | *Checked · awaiting approver* |
+| 3 · Approver | **Bank admin** (Admin / Super admin, or a user with Approver role) | Opens the same dossier with the checker's ticks and remarks visible, approves or rejects with reason | *Active / Verified* or *Rejected* |
+
+Rules: the three must be three different users; the checker cannot be the maker, the approver cannot be the checker or the maker (enforced by user id, also when Axis ops entered on behalf of the vendor). Any later edit, renewal or role change restarts at stage 1. All three names, times and IPs are printed in the dossier's approval trail. Tenant setting `approval_stages` = 3 (default for Axis) or 2 (maker + approver) for smaller banks.
+
+## 6.1 Task links instead of a vendor login (decision 15 Nov)
+
+No vendor portal and no vendor accounts. Every piece of work the bank needs from a vendor is a **task link**: single-purpose, single-use, sent by SMS + email, opens only after an OTP to the vendor's registered mobile, valid 7 days, dead after submit. Task types: *Onboarding* (V1–V4), *Add crew member*, *Add / replace van*, *Renew document* (pre-filled to that document), *Update contact*, *Fix sent-back item*.
+
+1. Axis admin creates a **vendor shell** — company name, GSTIN, services provided, signatory name, mobile, email — and clicks *Send task link → Onboarding*. Or Axis ops enters everything directly (flagged "entered by bank on behalf of vendor") — both paths stay available.
+2. **Ongoing changes**: (a) renewal links are generated **automatically** 60 / 30 / 7 days before any document expires and sent to the vendor; (b) for anything else the vendor opens a public **"Request a link"** page — enters GSTIN + registered mobile → OTP → chooses the task → receives a fresh link; (c) or the vendor phones / emails Axis ops, who click *Send task link* or enter it themselves.
+3. Status goes back to the vendor by SMS / email at each stage (checked, approved, sent back — a sent-back item comes with a new link to fix it). Every link sent, opened and used is logged with time, mobile and IP.
+4. Why this is easier: nothing for the bank to administer (no vendor users, passwords, resets, deactivations); nothing for the vendor to remember; each link does one thing and expires; the audit log shows exactly who did what through which link. A read-only vendor view (P11) stays optional for later.
+
+## 6.2 Vendor onboarding wizard (vendor portal, save-and-resume)
+
+| Step | Content | Completeness |
+|---|---|---|
+| V1 Company | Legal name, GST, PAN, regions, billing type; agreement / MOU + dates; CIT insurance; PSARA (if gunmen); signatory + ops-contact passport photo and ID | all required docs present |
+| V2 Vans | Add one by one, or **bulk Excel template** (registration, make, model, year, RC / insurance / PUC / fitness / permit numbers and dates) then upload the papers per van; year of manufacture checked against max age | every van has all 5 documents |
+| V3 Crew | Add one by one, or bulk Excel for text fields; per person: role, passport photo, Aadhaar front / back, DL (driver) / arms licence + guard card (gunman) / police verification (all) | every crew member complete |
+| V4 Review & submit | Summary with counts and missing items; "I confirm the information is true" with signatory name; *Submit for bank verification* | — |
+| Later | No dashboard: status by SMS / email; renewals through automatic links; other changes through "Request a link" or Axis ops; each change goes through the three stages | — |
+
+## 6.3 Bank side
+
+- **Approval queue** (sidebar: *Approvals*, badge with count): tabs *Awaiting checker* / *Awaiting approver* / *Sent back* / *Done*; each row opens the dossier; filters by vendor, entity type, age in queue; SLA colour after 2 working days.
+- **Checker view of the dossier**: checklist per document ("number matches scan", "validity read correctly", "photo matches ID"), remarks, buttons *Send back to vendor* / *Mark checked*.
+- **Approver view**: checker's ticks and remarks shown read-only, own checklist, *Reject* / *Approve*; approval only possible when status is *Checked*.
+- **Renewals**: 60 / 30 / 7-day alerts go to the vendor with a direct renewal link; the renewed document re-enters the queue; the old one stays valid until approved or expiry, whichever first.
+- **Bulk approval** is not allowed — each dossier is approved individually (bank audit requirement); the checker may check several of one vendor in a session.
+
+## 6.4 Data
+
+`approval_requests`: id, entity_type, entity_id, version, maker_user_id, maker_type (vendor | bank_on_behalf), submitted_at, checker_user_id, checked_at, checker_remarks, approver_user_id, decided_at, decision (approved | rejected), reason, sla_due_at. `task_links`: vendor_id, task_type (onboarding | add_crew | add_van | renew_document | update_contact | fix_sent_back), target_id (document / entity), token_hash, sent_to_mobile, sent_to_email, sent_by (user | system | vendor_request), sent_at, expires_at, opened_at, used_at, ip. `tenant_settings.approval_stages`.
+
+## 6.5 Tests (section K, continued)
+
+| # | Steps | Expected |
+|---|---|---|
+| K27 | Axis admin creates vendor shell → Send task link → Onboarding | SMS + email with link; logged; opens only after OTP; second use refused; expires after 7 days |
+| K27a | Vendor opens "Request a link" with GSTIN + registered mobile → OTP → Add crew | Fresh task link received; wrong mobile refused |
+| K27b | Document 60 days from expiry | Renewal task link sent automatically to the vendor, pre-filled to that document; logged |
+| K27c | Bank ops enters a van on behalf of the vendor | Flagged "entered by bank"; that user cannot check or approve it |
+| K28 | Vendor completes V1–V4 and submits | Status *Submitted · awaiting checker* on vendor, each van, each crew member; bank queue count updates |
+| K29 | Vendor task link has no check / approve controls; API from that token refused | 403 |
+| K30 | Bank operator opens dossier, ticks checklist, *Mark checked* | Status *Checked · awaiting approver*; operator cannot approve |
+| K31 | Same operator logs in as admin and tries to approve | Refused: "Checker and approver must be different users" |
+| K32 | Different admin approves | Active; dossier trail shows maker, checker, approver with times |
+| K33 | Checker sends a van back with remark "PUC scan unreadable" | Vendor sees *Sent back* with the remark; re-upload restarts at stage 1 |
+| K34 | Vendor edits an approved crew member's mobile | Record goes back to *Submitted*; old value still used until approved |
+| K35 | Bulk Excel with one invalid year of manufacture | Row-level error shown; other rows imported as drafts |
+| K36 | Set `approval_stages` = 2 on a test tenant | Checker stage skipped; maker → approver only |
+
 # 5. Build order
 
 1. Rename Drivers → Crew members, add role and the role-specific fields; migrate existing drivers as role = driver. Vendor "Services provided" + tenant `crew_sourcing` setting. (1 day UI + migration)
@@ -264,6 +326,7 @@ Every page carries: tenant, entity id, dossier no., page x / y, "Confidential �
 6. Crew attendance export. (½ day)
 7. Documents table + uploads on vendor / van / crew forms, nightly expiry job, alerts, Compliance page, run-planner blocking, gate-pass footer. (3 days)
 8. Approval dossier PDF generator + Review-dossier approval flow + Dossier tab + audit pack ZIP + view/print logging. (3 days)
+9. Vendor invite link + vendor onboarding wizard (V1–V4, bulk Excel) + three-stage approval queue (maker / checker / approver) + renewal links. (4 days)
 
 # 6. Tests to add to the handbook (section K)
 
