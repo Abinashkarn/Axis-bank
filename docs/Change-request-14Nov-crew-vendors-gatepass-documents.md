@@ -40,9 +40,11 @@ Sidebar (team build, with the new items slotted in): **Dashboard · Approvals ·
 | Police verification certificate (upload + date) | optional for all; bank may ask — keep the field |
 | Vendor | required; one vendor per crew member |
 
-Rules unchanged: Submit disabled until required fields and uploads are present; expired licence blocked; Aadhaar checksum; three-person approval (vendor maker → bank checker → bank approver, see section 6); Reject / send back with reason; Aadhaar masked in lists. Only a crew member with role **Driver**, KYC verified and licence valid can start a duty.
+Rules unchanged: Submit disabled until required fields and uploads are present; expired licence blocked; Aadhaar checksum; three-person approval (vendor maker → bank checker → bank approver, see section 6); Reject / send back with reason; Aadhaar masked in lists.
 
-**API**: keep `/ops/drivers` working as an alias for one release, add `/ops/crew-members`. Driver page OTP login stays for role Driver only (any role may be allowed later for custodian confirmation — see 2.3).
+**Who logs in at the van (decision 15 Nov):** *any* KYC-verified crew member on the run — driver, custodian or gunman — can log in on the crew phone page (device QR + OTP to their registered mobile) and operate the duty: confirm van, confirm crew, odometer, stops, end duty, show movement pass, panic. The run still needs a **Driver with a valid licence** among the crew on board (checked at the crew-on-board step), and the person who logged in is recorded on the duty (`operated_by`) and on the movement pass. The page is therefore called **Crew page**, not Driver page.
+
+**API**: keep `/ops/drivers` working as an alias for one release, add `/ops/crew-members`. Crew page OTP login accepts any verified crew member assigned to a run today (or to the van’s vendor when no run is planned).
 
 # 2A. Who supplies the crew — two cases
 
