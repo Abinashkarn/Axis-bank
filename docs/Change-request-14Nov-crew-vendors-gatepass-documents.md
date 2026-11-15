@@ -271,7 +271,7 @@ Rules: the three must be three different users; the checker cannot be the maker,
 
 No vendor portal and no vendor accounts. Every piece of work the bank needs from a vendor is a **task link**: single-purpose, single-use, sent by SMS + email, opens only after an OTP to the vendor's registered mobile, valid 7 days, dead after submit. Task types: *Onboarding* (V1–V4), *Add crew member*, *Add / replace van*, *Renew document* (pre-filled to that document), *Update contact*, *Fix sent-back item*.
 
-1. Axis admin creates a **vendor shell** — company name, GSTIN, services provided, signatory name, mobile, email — and clicks *Send task link → Onboarding*. Or Axis ops enters everything directly (flagged "entered by bank on behalf of vendor") — both paths stay available.
+1. Axis admin creates a **vendor shell** — company name, GSTIN, services provided, **authorised signatory name + mobile + email, ops contact name + mobile + email** (all required; optional escalation and billing email) — and clicks *Send task link → Onboarding*. Every task link goes to **both SMS and email** of the signatory, with the ops contact in copy; the signatory mobile is the OTP number. Email and mobile changes are themselves a task (*Update contact*) that goes through the three stages. Or Axis ops enters everything directly (flagged "entered by bank on behalf of vendor") — both paths stay available.
 2. **Ongoing changes**: (a) renewal links are generated **automatically** 60 / 30 / 7 days before any document expires and sent to the vendor; (b) for anything else the vendor opens a public **"Request a link"** page — enters GSTIN + registered mobile → OTP → chooses the task → receives a fresh link; (c) or the vendor phones / emails Axis ops, who click *Send task link* or enter it themselves.
 3. Status goes back to the vendor by SMS / email at each stage (checked, approved, sent back — a sent-back item comes with a new link to fix it). Every link sent, opened and used is logged with time, mobile and IP.
 4. Why this is easier: nothing for the bank to administer (no vendor users, passwords, resets, deactivations); nothing for the vendor to remember; each link does one thing and expires; the audit log shows exactly who did what through which link. A read-only vendor view (P11) stays optional for later.
@@ -296,13 +296,14 @@ No vendor portal and no vendor accounts. Every piece of work the bank needs from
 
 ## 6.4 Data
 
-`approval_requests`: id, entity_type, entity_id, version, maker_user_id, maker_type (vendor | bank_on_behalf), submitted_at, checker_user_id, checked_at, checker_remarks, approver_user_id, decided_at, decision (approved | rejected), reason, sla_due_at. `task_links`: vendor_id, task_type (onboarding | add_crew | add_van | renew_document | update_contact | fix_sent_back), target_id (document / entity), token_hash, sent_to_mobile, sent_to_email, sent_by (user | system | vendor_request), sent_at, expires_at, opened_at, used_at, ip. `tenant_settings.approval_stages`.
+`approval_requests`: id, entity_type, entity_id, version, maker_user_id, maker_type (vendor | bank_on_behalf), submitted_at, checker_user_id, checked_at, checker_remarks, approver_user_id, decided_at, decision (approved | rejected), reason, sla_due_at. `vendors` add: `signatory_name`, `signatory_mobile`, `signatory_email`, `ops_name`, `ops_mobile`, `ops_email`, `escalation_contact`, `billing_email` (mobile E.164 + email format validated; mobile unique across vendors). `task_links`: vendor_id, task_type (onboarding | add_crew | add_van | renew_document | update_contact | fix_sent_back), target_id (document / entity), token_hash, sent_to_mobile, sent_to_email, sent_by (user | system | vendor_request), sent_at, expires_at, opened_at, used_at, ip. `tenant_settings.approval_stages`.
 
 ## 6.5 Tests (section K, continued)
 
 | # | Steps | Expected |
 |---|---|---|
-| K27 | Axis admin creates vendor shell → Send task link → Onboarding | SMS + email with link; logged; opens only after OTP; second use refused; expires after 7 days |
+| K27 | Axis admin creates vendor shell → Send task link → Onboarding | Link arrives by **SMS and email** (signatory; ops contact in copy); logged; opens only after OTP to the signatory mobile; second use refused; expires after 7 days |
+| K27d | Register vendor without signatory email or mobile | Submit disabled; invalid email / non-E.164 mobile rejected |
 | K27a | Vendor opens "Request a link" with GSTIN + registered mobile → OTP → Add crew | Fresh task link received; wrong mobile refused |
 | K27b | Document 60 days from expiry | Renewal task link sent automatically to the vendor, pre-filled to that document; logged |
 | K27c | Bank ops enters a van on behalf of the vendor | Flagged "entered by bank"; that user cannot check or approve it |
