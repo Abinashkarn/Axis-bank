@@ -72,7 +72,7 @@ Data: `vendors.services` (set: van_driver | gunmen | custodians), `run_crew.vend
 - `crew_members` (rename of `drivers`): add `role` enum (driver | custodian | gunman | other), `arms_licence_no`, `arms_licence_valid_till`, `arms_licence_doc`, `police_verification_doc`, `police_verification_date`.
 - `run_crew` (new): run_id, crew_member_id, role, is_lead (bool) — the planned crew.
 - `duty_crew` (new): duty_id, crew_member_id, role, confirmed_at, confirmed_by (driver_select | otp) — who was actually on board.
-- `tenant_settings`: `min_crew` JSON, default `{"driver":1,"custodian":2,"gunman":2}` — **used for display and warnings, not as a hard block**: five slots are always shown on the run, movement pass, verify page and crew phone; fewer on board raises a `crew_below_minimum` warning on the run and the duty (visible in reports) but Start duty proceeds. `block_below_min_crew` = false by default; the bank can switch it on per tenant later; `max_crew` 6.
+- `tenant_settings`: `min_crew` JSON, default `{"driver":1,"custodian":2,"gunman":2}` — **used for warnings only, not as a hard block**: the run, movement pass, verify page and on-duty screen show **dynamically whoever was confirmed on board** at the crew-on-board step — any number from 1 to `max_crew` (6); fewer than the minimum raises a `crew_below_minimum` warning on the run and the duty (visible in reports) but Start duty proceeds. `block_below_min_crew` = false by default; the bank can switch it on per tenant later; `max_crew` 6.
 
 ## 2.2 Create run (portal)
 
@@ -345,7 +345,7 @@ The gate pass must stand up when a traffic policeman or any checkpoint stops the
 ## 7.1 Public verify page (QR on the pass and on the windscreen sticker)
 
 - URL `https://<tenant>.trackotic.com/v/<token>` — token is random, not the WO number; no login.
-- Shows only: bank name, **VALID / EXPIRED / CANCELLED** in large type with colour, van registration, date and time window, the five crew with passport photos and roles (1 driver, 2 custodians, 2 gunmen), "issued by Axis Bank control room", control-room number. **Nothing else** — no amounts, no route, no Aadhaar, no names of branches.
+- Shows only: bank name, **VALID / EXPIRED / CANCELLED** in large type with colour, van registration, date and time window, the crew actually on board (dynamic, as confirmed at start) with passport photos and roles, "issued by Axis Bank control room", control-room number. **Nothing else** — no amounts, no route, no Aadhaar, no names of branches.
 - Hindi / English toggle; works on any phone browser; loads in < 1 s on 2G (no map, tiny images).
 - Every scan is logged: time, IP, approximate location (if the scanner allows), user agent → "Pass scanned 3 times today" visible on the run detail; an unusual number of scans raises an info alert.
 - Windscreen QR sticker per van opens the **current** pass for that van (or "no active movement" when the van is idle).
@@ -358,7 +358,7 @@ Confirm current figures with Axis compliance before coding the thresholds; all a
 | Rule | What the system does |
 |---|---|
 | No cash movement after 21:00 urban / 18:00 rural (16:00 notified areas) | Run planner warns when planned return is after the cut-off; on-duty alert `after_hours_movement` (critical) if the van is moving after it; shown on the duty record and the vendor SLA report |
-| Minimum two armed guards per van | Five crew slots (1 driver · 2 custodians · 2 gunmen) always visible on run, pass, verify page, on-duty screen; below minimum = warning recorded on the duty and in the vendor compliance report, not a block (tenant can switch blocking on) |
+| Minimum two armed guards per van | Crew list is dynamic — exactly who was confirmed on board (typically 1 driver, 2 custodians, 2 gunmen) on run, pass, verify page, on-duty screen; below minimum = warning recorded on the duty and in the vendor compliance report, not a block (tenant can switch blocking on) |
 | Cash per trip cap (₹5 crore) | "Declared total per run" band on the work order; hard warning above the cap; band only, never the exact figure |
 | Vehicle: GPS, CCTV, hooter/alarm, immobiliser, separate cash compartment, van age | Van compliance checklist in Van KYC with photo evidence per item and renewal dates; missing item → van flagged; age from year of manufacture |
 | Crew: PSARA-trained guards, police verification, duty hours | Already in crew KYC; add `max_duty_hours` (default 12) → alert `duty_hours_exceeded` |
