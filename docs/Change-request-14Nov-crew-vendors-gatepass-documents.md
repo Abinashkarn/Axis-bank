@@ -14,6 +14,12 @@ Six changes from the bank's feedback in today's demo. All are phase 1 and should
 | 5 | Approvers / admins must see and print one **collated PDF** per vendor, van and crew member — form + all documents + validity + approval trail — for internal bank audit | Approval dossier: approve from the dossier, Dossier tab everywhere, audit pack ZIP |
 | 6 | Too much data entry for the bank → the bank sends the vendor a **link** and the vendor enters its own masters; **three-person rule**: vendor maker → bank operator checker → bank admin approver | Vendor invite + self-onboarding wizard + approval queue with three stages |
 
+# 0. Sidebar order and Locations master
+
+Sidebar (team build, with the new items slotted in): **Dashboard · Approvals · Locations · CIT Vendors · Vans · Crew members (Drivers) · ~~Inventory~~ (hide for CIT tenant) · Work Orders · Duties · Live Tracking · Van Health · Alerts · Compliance · Reports · Users.**
+
+**Locations** is the bank's own master — currency chests, hubs, branches, ATMs — and is where work orders and duties are anchored: a work order's origin and return is a location of type *chest* or *hub*; its planned stops are locations of type *branch* or *ATM*; each location is a geofence (radius per type) that logs arrival, departure and dwell. Fields: name, bank code (SOL / branch code), type, address, lat/long (pin on map), geofence radius, operating hours, contact. Added by Axis ops (or bulk Excel), approved by a second Axis admin (two bank users; no vendor involved). Only approved locations appear in Create work order. Rename "CIT Runs" → **Work Orders** everywhere to match the build.
+
 # 1. Crew members (rename of Drivers)
 
 **Sidebar**: *Drivers* → **Crew members**. Page title "Crew members", KPIs: Total · KYC verified · KYC pending · Licence expiring < 60 d · By role (Driver / Custodian / Gunman).
