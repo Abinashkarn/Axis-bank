@@ -3,7 +3,7 @@ title: "Axis CIT — Change request after customer demo (14 Nov 2026)"
 subtitle: "For Deepak · Track0tic™ Axis Bank tenant · crew members, KYC for all, printable gate pass, document expiry alerts"
 ---
 
-Six changes from the bank's feedback in today's demo. All are phase 1 and should go to UAT before the next demo.
+Seven changes from the bank's feedback in today's demo. All are phase 1 and should go to UAT before the next demo.
 
 | # | Feedback | Change in one line |
 |---|---|---|
@@ -12,6 +12,7 @@ Six changes from the bank's feedback in today's demo. All are phase 1 and should
 | 3 | Every duty / work order must be printable as a **gate pass**, with boxes to write opening and closing odometer by hand | "Print gate pass" PDF on every run, plus a portal field to key in the hand-written readings |
 | 4 | Vendor agreements, van papers (RC, PUC, fitness, insurance, year of manufacture) and crew licences must be tracked with **expiry alerts** | One documents module with valid-till dates, 60/30/7-day alerts, blocking on expiry, Compliance page |
 | 5 | Approvers / admins must see and print one **collated PDF** per vendor, van and crew member — form + all documents + validity + approval trail — for internal bank audit | Approval dossier: approve from the dossier, Dossier tab everywhere, audit pack ZIP |
+| 7 | Gate pass must work as a **road document** for traffic police and checkpoints; bank is answerable for MHA cash-transport rules | Movement authorisation layout + public QR verify page + compliance checks; security & audit controls sheet |
 | 6 | Too much data entry for the bank → the bank sends the vendor a **link** and the vendor enters its own masters; **three-person rule**: vendor maker → bank operator checker → bank admin approver | Vendor invite + self-onboarding wizard + approval queue with three stages |
 
 # 0. Sidebar order and Locations master
@@ -325,6 +326,61 @@ No vendor portal and no vendor accounts. Every piece of work the bank needs from
 | K35 | Bulk Excel with one invalid year of manufacture | Row-level error shown; other rows imported as drafts |
 | K36 | Set `approval_stages` = 2 on a test tenant | Checker stage skipped; maker → approver only |
 
+# 7. Gate pass = Cash Van Movement Authorisation (road document)
+
+The gate pass must stand up when a traffic policeman or any checkpoint stops the van. Changes to section 3:
+
+- **Title and authority block**: "AXIS BANK — CASH VAN MOVEMENT AUTHORISATION", bank logo, pre-printed line *"The vehicle and crew below are authorised by Axis Bank Ltd to transport cash on <date> between <from> and <to> hrs"*, name and designation of the authorising officer (control-room head / chest in-charge), bank control-room 24×7 number, vendor control-room number.
+- **Validity window** (date + time, from the planned departure to planned return + 2 h buffer); outside it the pass shows *expired*.
+- **Vehicle papers line**: RC valid till · Insurance · PUC · Fitness · Permit — from Van KYC, so the officer's first questions are answered on the sheet.
+- **Crew** with passport photo, role, vendor, ID type (no Aadhaar number on the road copy — masked).
+- **Route**: origin chest, planned stops with branch codes, return — unnumbered if no route was set.
+- **Hindi**: crew names, roles and the authorisation line also in Devanagari (toggle "Print bilingual").
+- **Duplicate**: printed twice at the chest — *Road copy* (travels, no amounts) and *Chest copy* (stays, with opening odometer written and chest in-charge signature). The road copy never shows cash bands.
+- **Driver phone**: On-duty screen gets **Show movement pass** — the same content on screen, with the live QR; lost paper is not a problem.
+- **Cancel pass**: Axis ops / admin can cancel a pass (reason required); the verify page shows *CANCELLED* immediately and the driver page shows the same.
+
+## 7.1 Public verify page (QR on the pass and on the windscreen sticker)
+
+- URL `https://<tenant>.trackotic.com/v/<token>` — token is random, not the WO number; no login.
+- Shows only: bank name, **VALID / EXPIRED / CANCELLED** in large type with colour, van registration, date and time window, number of crew with their passport photos and roles, "issued by Axis Bank control room", control-room number. **Nothing else** — no amounts, no route, no Aadhaar, no names of branches.
+- Hindi / English toggle; works on any phone browser; loads in < 1 s on 2G (no map, tiny images).
+- Every scan is logged: time, IP, approximate location (if the scanner allows), user agent → "Pass scanned 3 times today" visible on the run detail; an unusual number of scans raises an info alert.
+- Windscreen QR sticker per van opens the **current** pass for that van (or "no active movement" when the van is idle).
+- Rate-limited and token-rotated per run so old passes cannot be replayed.
+
+## 7.2 Compliance checks (vendor's obligation under the MHA Cash Transportation Rules 2018; the bank is answerable, so the system flags)
+
+Confirm current figures with Axis compliance before coding the thresholds; all are tenant settings.
+
+| Rule | What the system does |
+|---|---|
+| No cash movement after 21:00 urban / 18:00 rural (16:00 notified areas) | Run planner warns when planned return is after the cut-off; on-duty alert `after_hours_movement` (critical) if the van is moving after it; shown on the duty record and the vendor SLA report |
+| Minimum two armed guards per van | Default min crew = 1 driver · 1 custodian · **2 gunmen**; Start duty blocked below minimum |
+| Cash per trip cap (₹5 crore) | "Declared total per run" band on the work order; hard warning above the cap; band only, never the exact figure |
+| Vehicle: GPS, CCTV, hooter/alarm, immobiliser, separate cash compartment, van age | Van compliance checklist in Van KYC with photo evidence per item and renewal dates; missing item → van flagged; age from year of manufacture |
+| Crew: PSARA-trained guards, police verification, duty hours | Already in crew KYC; add `max_duty_hours` (default 12) → alert `duty_hours_exceeded` |
+| Incident SOP | **Panic button** on the driver page → critical alert with location, 10-second GPS burst for 30 min, control-room + vendor notified; monthly incident register in Reports |
+
+Vendor is told at onboarding (task link) which rules the system monitors; breaches appear in the vendor's monthly statement and the bank's compliance report.
+
+# 8. Security & audit controls (one page for the bank's Infosec / internal audit)
+
+| Area | Control |
+|---|---|
+| Access | Bank users: SSO or password + OTP, approved-IP restriction, role-based (Super admin · Admin/Approver · Operator/Checker · Viewer), 30-min idle timeout, 12-h session max. Vendors: no accounts — single-use OTP-bound task links, 7-day expiry. Drivers: mobile OTP, device-bound session |
+| Segregation of duties | Three-person rule on all masters and changes (maker ≠ checker ≠ approver); enforced server-side, not just hidden buttons |
+| Data minimisation | Aadhaar stored encrypted, shown masked; unmask only Admin with logged reason; cash amounts as bands; road copy of the pass carries no amounts or Aadhaar |
+| Encryption | TLS 1.2+ in transit; AES-256 at rest (S3 SSE-KMS, RDS encryption); KMS keys per tenant |
+| Retention | Telemetry, duties, documents, dossiers, audit log: 7 years, S3 Object Lock (WORM); deletion only by retention policy |
+| Audit log | Append-only; every create / edit / approve / view / print / download / scan with user, role, time, IP; exportable; dossier and audit pack generation logged |
+| Device integrity | Device UID + IMEI + SIM registered in Inventory; tamper alert; GPS time; buffered uploads; swap history per van |
+| Availability | Daily backups, 35-day PITR, RTO 4 h / RPO 15 min (confirm with Deepak); status page for the control room |
+| Monitoring | Failed-login lockout, unusual scan counts, after-hours movement, API rate limits; alerts to Track0tic ops |
+| Tenant isolation | Separate schema / bucket prefix per tenant; dedicated environment available if the bank requires |
+| Daily pack | 02:30 IST PDF to the control-room head: duties, flagged duties, open alerts, documents expiring ≤ 7 d, approvals pending |
+| Tests | K37 verify page shows only the allowed fields · K38 cancelled pass → verify page CANCELLED within 5 s · K39 scan log on run detail · K40 after-hours alert fires at cut-off · K41 panic button → critical alert + GPS burst · K42 audit log export contains print/scan events |
+
 # 5. Build order
 
 1. Rename Drivers → Crew members, add role and the role-specific fields; migrate existing drivers as role = driver. Vendor "Services provided" + tenant `crew_sourcing` setting. (1 day UI + migration)
@@ -335,7 +391,10 @@ No vendor portal and no vendor accounts. Every piece of work the bank needs from
 6. Crew attendance export. (½ day)
 7. Documents table + uploads on vendor / van / crew forms, nightly expiry job, alerts, Compliance page, run-planner blocking, gate-pass footer. (3 days)
 8. Approval dossier PDF generator + Review-dossier approval flow + Dossier tab + audit pack ZIP + view/print logging. (3 days)
-9. Vendor invite link + vendor onboarding wizard (V1–V4, bulk Excel) + three-stage approval queue (maker / checker / approver) + renewal links. (4 days)
+9. Vendor task links + onboarding wizard (V1–V4, bulk Excel) + three-stage approval queue (maker / checker / approver) + renewal links. (4 days)
+10. Movement authorisation layout (road / chest copy, bilingual), public verify page + scan log, windscreen QR, cancel pass, driver "Show movement pass". (2 days)
+11. Compliance checks: after-hours alert, min 2 gunmen, cash-cap band, van compliance checklist, duty hours, panic button + GPS burst. (2 days)
+12. Security controls sheet items not yet in place (idle timeout, lockout, scan rate-limit, daily pack). (1 day)
 
 # 6. Tests to add to the handbook (section K)
 
