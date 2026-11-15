@@ -16,7 +16,9 @@ Six changes from the bank's feedback in today's demo. All are phase 1 and should
 
 # 0. Sidebar order and Locations master
 
-Sidebar (team build, with the new items slotted in): **Dashboard · Approvals · Locations · CIT Vendors · Vans · Crew members (Drivers) · ~~Inventory~~ (hide for CIT tenant) · Work Orders · Duties · Live Tracking · Van Health · Alerts · Compliance · Reports · Users.**
+Sidebar (team build, with the new items slotted in): **Dashboard · Approvals · Locations · CIT Vendors · Vans · Crew members (Drivers) · Inventory · Work Orders · Duties · Live Tracking · Van Health · Alerts · Compliance · Reports · Users.**
+
+**Inventory** = Track0tic device stock for this tenant: trackers (device UID, IMEI, SIM / ICCID, firmware, battery health), spare SIMs, mounts and QR stickers; states *in stock · assigned to van · in repair · retired*. "Assign device" in Add / Edit van picks from Inventory (in-stock only) and moves the device to *assigned*; replacing a device writes the swap to the van history and the KM pipeline keys telemetry by device-period. Inventory is managed by Axis ops / Track0tic support, not by vendors; device KYC (IMEI, SIM owner) is kept for the bank audit.
 
 **Locations** is the bank's own master — currency chests, hubs, branches, ATMs — and is where work orders and duties are anchored: a work order's origin and return is a location of type *chest* or *hub*; its planned stops are locations of type *branch* or *ATM*; each location is a geofence (radius per type) that logs arrival, departure and dwell. Fields: name, bank code (SOL / branch code), type, address, lat/long (pin on map), geofence radius, operating hours, contact. Added by Axis ops (or bulk Excel), approved by a second Axis admin (two bank users; no vendor involved). Only approved locations appear in Create work order. Rename "CIT Runs" → **Work Orders** everywhere to match the build.
 
