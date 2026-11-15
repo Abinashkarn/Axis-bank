@@ -72,22 +72,22 @@ Data: `vendors.services` (set: van_driver | gunmen | custodians), `run_crew.vend
 - `crew_members` (rename of `drivers`): add `role` enum (driver | custodian | gunman | other), `arms_licence_no`, `arms_licence_valid_till`, `arms_licence_doc`, `police_verification_doc`, `police_verification_date`.
 - `run_crew` (new): run_id, crew_member_id, role, is_lead (bool) — the planned crew.
 - `duty_crew` (new): duty_id, crew_member_id, role, confirmed_at, confirmed_by (driver_select | otp) — who was actually on board.
-- `tenant_settings`: `min_crew` JSON, default `{"driver":1,"custodian":1,"gunman":1}`; `max_crew` 6.
+- `tenant_settings`: `min_crew` JSON, default `{"driver":1,"custodian":2,"gunman":2}` (MHA cash-transport rule; tenant can lower it only with a recorded reason); `max_crew` 6.
 
 ## 2.2 Create run (portal)
 
 After Vendor → Van, the Driver dropdown becomes a **Crew** section:
 
 - Driver (required, 1) — vendor's verified drivers with valid licence.
-- Custodian 1, Custodian 2 (optional) — verified custodians.
-- Gunman 1, Gunman 2 (optional) — verified gunmen.
+- Custodian 1 and Custodian 2 (both required by default) — verified custodians.
+- Gunman 1 and Gunman 2 (both required by default) — verified gunmen.
 - Validation against `min_crew`; a crew member cannot be on two runs at the same time on the same date.
 
 Run detail shows the crew table: role · name · mobile · KYC state · photo thumbnail. "Reassign" lets ops swap any crew member before the run starts.
 
 ## 2.3 Driver page
 
-- **Start duty** screen gets a **Crew on board** step after "Is this your van?": the planned crew is listed with photos and a tick box each; the driver unticks anyone absent and can add a replacement from the vendor's verified crew of that role. If the crew falls below `min_crew`, Start duty is blocked with the message "Minimum crew: 1 driver, 1 custodian, 1 gunman".
+- **Start duty** screen gets a **Crew on board** step after "Is this your van?": the planned crew is listed with photos and a tick box each; the driver unticks anyone absent and can add a replacement from the vendor's verified crew of that role. If the crew falls below `min_crew`, Start duty is blocked with the message "Minimum crew: 1 driver, 2 custodians, 2 gunmen".
 - Optional (tenant setting `crew_otp_confirm`): each custodian confirms presence with an OTP to their own mobile on the same phone — stronger evidence for audit. Off by default for the pilot.
 - **On duty** and **Duty complete** screens show the crew names.
 - Hindi strings for all of the above.
@@ -345,7 +345,7 @@ The gate pass must stand up when a traffic policeman or any checkpoint stops the
 ## 7.1 Public verify page (QR on the pass and on the windscreen sticker)
 
 - URL `https://<tenant>.trackotic.com/v/<token>` — token is random, not the WO number; no login.
-- Shows only: bank name, **VALID / EXPIRED / CANCELLED** in large type with colour, van registration, date and time window, number of crew with their passport photos and roles, "issued by Axis Bank control room", control-room number. **Nothing else** — no amounts, no route, no Aadhaar, no names of branches.
+- Shows only: bank name, **VALID / EXPIRED / CANCELLED** in large type with colour, van registration, date and time window, the five crew with passport photos and roles (1 driver, 2 custodians, 2 gunmen), "issued by Axis Bank control room", control-room number. **Nothing else** — no amounts, no route, no Aadhaar, no names of branches.
 - Hindi / English toggle; works on any phone browser; loads in < 1 s on 2G (no map, tiny images).
 - Every scan is logged: time, IP, approximate location (if the scanner allows), user agent → "Pass scanned 3 times today" visible on the run detail; an unusual number of scans raises an info alert.
 - Windscreen QR sticker per van opens the **current** pass for that van (or "no active movement" when the van is idle).
@@ -358,7 +358,7 @@ Confirm current figures with Axis compliance before coding the thresholds; all a
 | Rule | What the system does |
 |---|---|
 | No cash movement after 21:00 urban / 18:00 rural (16:00 notified areas) | Run planner warns when planned return is after the cut-off; on-duty alert `after_hours_movement` (critical) if the van is moving after it; shown on the duty record and the vendor SLA report |
-| Minimum two armed guards per van | Default min crew = 1 driver · 1 custodian · **2 gunmen**; Start duty blocked below minimum |
+| Minimum two armed guards per van | Default min crew = **1 driver · 2 custodians · 2 gunmen** (5); Start duty blocked below minimum; V2 verify page and the on-duty screen show all five with photos |
 | Cash per trip cap (₹5 crore) | "Declared total per run" band on the work order; hard warning above the cap; band only, never the exact figure |
 | Vehicle: GPS, CCTV, hooter/alarm, immobiliser, separate cash compartment, van age | Van compliance checklist in Van KYC with photo evidence per item and renewal dates; missing item → van flagged; age from year of manufacture |
 | Crew: PSARA-trained guards, police verification, duty hours | Already in crew KYC; add `max_duty_hours` (default 12) → alert `duty_hours_exceeded` |
@@ -410,8 +410,8 @@ Vendor is told at onboarding (task link) which rules the system monitors; breach
 | K3c | Log in as vendor user → Add crew member with photo + KYC | Saved as Pending for Axis approval; vendor cannot approve; dossier generated |
 | K3d | Renew a driver's DL on a record whose photo is 3+ years old | Form demands a new photo before Submit; record returns to Pending |
 | K3e | Register vendor without authorised-signatory photo | Submit disabled |
-| K4 | Create run with driver only | Blocked: "Minimum crew: 1 driver, 1 custodian, 1 gunman" |
-| K5 | Create run with driver + custodian + gunman | Run detail shows crew table with vendor per member |
+| K4 | Create run with driver only | Blocked: "Minimum crew: 1 driver, 2 custodians, 2 gunmen" |
+| K5 | Create run with driver + 2 custodians + 2 gunmen | Run detail shows crew table with vendor per member |
 | K5a | Tenant setting single_vendor (Axis): open Gunman dropdown | Only the run's CIT vendor gunmen listed |
 | K5b | Switch tenant setting to multi_vendor; register a Security agency (services = Gunmen) with one verified gunman | Gunman dropdown now lists him under his agency; gate pass shows the agency beside his name |
 | K5c | Security agency tries to add a crew member with role Driver | Refused: role not in the vendor's services |
